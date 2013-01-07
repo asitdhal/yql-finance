@@ -13,10 +13,10 @@ from sqlalchemy import *
 
 class ConfigTable(object):
 
-    def __init__(self, file_name = 'nsesymbols.txt', db_echo = False, create_new=False):
+    def __init__(self, file_name = 'nsesymbols.txt', table_name = 'config.db', db_echo = False, create_new=False):
         self.table_name = 'SYMBOLS'
         self.create_new = False
-        self.db = create_engine('sqlite:///config.db')
+        self.db = create_engine('sqlite:///' + table_name)
         self.file_name = file_name
         self.db_echo = db_echo
         self.metadata = MetaData(self.db)
