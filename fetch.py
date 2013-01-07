@@ -133,7 +133,7 @@ class Yql(object):
                 field_str = self.fields + ", " + 'Symbol'
             else:
                 field_str = self.fields
-            self.query = self.query % (field_str)
+            self.query = self.query % (self.fields)
         if isinstance(self.symbols, types.ListType):
             for symbol in self.symbols:
                 if len(self.url) == 0:
