@@ -118,14 +118,22 @@ class Yql(object):
     def _make_url(self):
         field_str = ''
         if isinstance(self.fields, types.ListType):
+            if 'Symbol' not in self.fields:
+                self.fields.append('Symbol')
             for field in self.fields:
                 if len(field_str) == 0:
                     field_str = field
                 else:
                     field_str += ", " + field
             self.query = self.query % (field_str)
-        else:
+        elif self.fields == '*':
             self.query = self.query % (self.fields)
+        else:
+            if self.fields != 'Symbol':
+                field_str = self.fields + ", " + 'Symbol'
+            else:
+                field_str = self.fields
+            self.query = self.query % (field_str)
         if isinstance(self.symbols, types.ListType):
             for symbol in self.symbols:
                 if len(self.url) == 0:
