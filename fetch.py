@@ -1,12 +1,8 @@
 #-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
-#
+# Name:        fetch.py
+# Purpose:     Interacts with YQL server and fetched quotes
 # Author:      asit
-#
-# Created:
 # Copyright:   (c) asit
-# Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
 import urllib2
@@ -14,6 +10,7 @@ import httplib
 from threading import Thread
 from elementtree import ElementTree
 import types
+import threading
 
 class XmlListConfig(list):
     def __init__(self, aList):
@@ -158,3 +155,7 @@ class Yql(object):
         for quote in xmldict["results"]["quote"]:
             self.res_quotes[quote['Symbol']] = quote
         return self.res_quotes
+
+#class YqlWrapper(threading.Thread):
+
+#    def __init__(self, symbol, callback):
