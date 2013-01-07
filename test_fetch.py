@@ -14,6 +14,7 @@ class TestYql(unittest.TestCase):
     def testquery_yql(self):
         lis = []
         fields = []
+        fields.append('Symbol')
         fields.append('YearLow')
         fields.append('LastTradePriceOnly')
         fields.append('YearHigh')
@@ -33,7 +34,7 @@ class TestYql(unittest.TestCase):
         lis.append("TCS.NS")
         lis.append("HINDALCO.NS")
         yql_ob = fetch.Yql(lis, fields )
-        yql_ob.query_yql()
+        print yql_ob.query_yql()
 
 
 if __name__ == '__main__':
