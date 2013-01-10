@@ -13,12 +13,44 @@ from sqlalchemy import *
 
 class DbSetup(object):
 
-    def __init__(self, db_echo=False):
+    def __init__(self, db_echo=False, engine_name = 'stock_quote.db'):
+        self.db = create_engine('sqlite:///' + engine_name)
         self.db_echo = db_echo
+        self.metadata = MetaData(self.db)
+
+    def _create_daily_quotes_table(self):
+        daily_quotes = Table('DAILY_QUOTES', self.metadata,
+            Column('Symbol', String),
+            Column('Name', String),
+            Column('StockExchange', String),
+            Column('Ask', String),
+            Column('Bid', String),
+            Column('Change', String),
+            Column('ChangeinPercent', String),
+            Column('Open', String),
+            Column('TradeDate', String),
+            Column('PreviousClose', String),
+            Column('PercentChange', String),
+            Column('LastTradeDate', String),
+            Column('LastTradeTime', String),
+            Column('LastTradePriceOnly', String),
+            Column('DaysRange', String),
+            Column('DaysHigh', String),
+            Column('DaysLow', String),
+            Column('YearLow', String),
+            Column('YearHigh', String),
+            Column('PercebtChangeFromYearHigh', String),
+            Column('PercentChangeFromYearLow', String),
+            Column('ChangeFromYearHigh', String),
+            Column('ChangeFromYearLow', String),
+        )
+        daily_quotes.create()
+
 
 
 def main():
-    pass
+    setup = DbSetup()
+    setup._create_daily_quotes_table()
 
 if __name__ == '__main__':
     main()
