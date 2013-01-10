@@ -20,16 +20,25 @@ class DbDailyQuotes(object):
         self.metadata = MetaData(self.db)
         self.table = Table('DAILY_QUOTES', self.metadata, autoload=True)
         self.ins = self.table.insert()
+        #self.session = create_session()
+        #self.transaction = self.session.create_transaction()
 
     def Insert(self, data):
         if data is None:
             return
         else:
-            if isinstance(data, types.ListType):
-                for ele in data:
-                    self.execute(ele)
-            elif isinstance(data, types.DictType):
-                self.ins.execute(data)
-            else:
-                print "Invalid Data ", data
-                return
+            try:
+                if isinstance(data, types.ListType):
+                    for ele in data:
+                        self.execute(ele)
+                        #session.flush()
+                elif isinstance(data, types.DictType):
+                    self.ins.execute(data)
+                    #session.flush()
+                else:
+                    print "Invalid Data ", data
+                    return
+                #self.transaction.commit()
+            except:
+                transaction.rollback()
+                raise

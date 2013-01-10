@@ -46,11 +46,22 @@ class DbSetup(object):
         )
         daily_quotes.create()
 
+    def _create_symbols_table(self):
+        symbols = Table('SYMBOLS', self.metadata,
+            Column('Symbol', String, primary_key=True),
+            Column('Exchange', String(40), primary_key=True),
+            Column('Name', String),
+            Column('Status', String),
+        )
+        symbols.create()
+
+
 
 
 def main():
     setup = DbSetup()
-    setup._create_daily_quotes_table()
+    #setup._create_daily_quotes_table()
+    setup._create_symbols_table()
 
 if __name__ == '__main__':
     main()
