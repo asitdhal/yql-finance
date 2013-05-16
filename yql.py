@@ -65,10 +65,11 @@ class Yql(object):
         self._make_url()
         res = UrlFetch(self.encoded_url)
         self.res_data = res.Get()
+        #print self.res_data        
         self.res_quotes = {}
         root = ElementTree.XML(self.res_data)
         xmldict = XmlDictConfig(root)
-        #print self.res_data
+ 
         for quote in xmldict["results"]["quote"]:
             self.res_quotes[quote['Symbol']] = quote
         return self.res_quotes
