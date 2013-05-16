@@ -1,16 +1,7 @@
-#-------------------------------------------------------------------------------
-# Name:        fetch.py
-# Purpose:     Interacts with YQL server and fetched quotes
-# Author:      asit
-# Copyright:   (c) asit
-#-------------------------------------------------------------------------------
-
 import urllib2
 import httplib
-from threading import Thread
 from elementtree import ElementTree
 import types
-import threading
 
 class XmlListConfig(list):
     def __init__(self, aList):
@@ -29,20 +20,6 @@ class XmlListConfig(list):
 
 
 class XmlDictConfig(dict):
-    '''
-    Example usage:
-
-    >>> tree = ElementTree.parse('your_file.xml')
-    >>> root = tree.getroot()
-    >>> xmldict = XmlDictConfig(root)
-
-    Or, if you want to use an XML string:
-
-    >>> root = ElementTree.XML(xml_string)
-    >>> xmldict = XmlDictConfig(root)
-
-    And then use xmldict for what it is... a dict.
-    '''
     def __init__(self, parent_element):
         if parent_element.items():
             self.update(dict(parent_element.items()))
@@ -152,7 +129,7 @@ class Yql(object):
         self.res_quotes = {}
         root = ElementTree.XML(self.res_data)
         xmldict = XmlDictConfig(root)
-        #print self.res_data
+        print self.res_data
         for quote in xmldict["results"]["quote"]:
             self.res_quotes[quote['Symbol']] = quote
         return self.res_quotes
